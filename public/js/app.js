@@ -59247,8 +59247,13 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/*window.Slug = require('slug');
+Slug.defaults.mode = 'rfc3986';*/
+
 
 Vue.use(buefy__WEBPACK_IMPORTED_MODULE_0___default.a);
+/*Vue.component('slug-widget', require('./components/slugWidget.vue'));*/
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -59269,6 +59274,13 @@ Vue.use(buefy__WEBPACK_IMPORTED_MODULE_0___default.a);
 /*const app = new Vue({
     el: '#app',
 });*/
+
+/*var app = new Vue({
+    el:'#app',
+    data: {}
+})*/
+
+__webpack_require__(/*! ./manage */ "./resources/js/manage.js");
 
 /***/ }),
 
@@ -59325,6 +59337,49 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/manage.js":
+/*!********************************!*\
+  !*** ./resources/js/manage.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var accordions = document.getElementsByClassName('has-submenu');
+var adminSlideButton = document.getElementById('admin-slideout-button');
+
+function setSubmenuStyles(submenu, maxHeight, margins) {
+  submenu.style.maxHeight = maxHeight;
+  submenu.style.marginTop = margins;
+  submenu.style.marginBottom = margins;
+}
+
+adminSlideButton.onclick = function () {
+  this.classList.toggle('is-active');
+  document.getElementById('admin-side-menu').classList.toggle('is-active');
+};
+
+for (var i = 0; i < accordions.length; i++) {
+  if (accordions[i].classList.contains('is-active')) {
+    var submenu = accordions[i].nextElementSibling;
+    setSubmenuStyles(submenu, submenu.scrollHeight + "px", "0.75em");
+  }
+
+  accordions[i].onclick = function () {
+    this.classList.toggle('is-active');
+    var submenu = this.nextElementSibling;
+
+    if (submenu.style.maxHeight) {
+      // menu is open, we need to close it now
+      setSubmenuStyles(submenu, null, null);
+    } else {
+      // meny is close, so we need to open it
+      setSubmenuStyles(submenu, submenu.scrollHeight + "px", "0.75em");
+    }
+  };
+}
 
 /***/ }),
 
